@@ -1,0 +1,18 @@
+server:
+    port: 9095
+spring:
+ profiles.active: dev
+ application:
+           name: care-event-in-service
+ kafka.bootstrap-servers: kafka-svc:9092
+ cloud.stream:
+  kafka.streams:
+    binder.configuration:
+      default.key.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+      default.value.serde: org.springframework.kafka.support.serializer.JsonSerde
+      spring.json.value.default.type: com.abnamro.care.event.model.Event
+  bindings:
+    output:
+      destination: care.event.data.in
+      producer:
+        use-native-encoding: true
